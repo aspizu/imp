@@ -58,7 +58,7 @@ impl<'b> Pd<'b> {
       Self { src: src.as_bytes() }
    }
 
-   fn backtrack<'a, T, F>(&self, s: &mut Ps, f: F) -> Option<T>
+   fn backtrack<T, F>(&self, s: &mut Ps, f: F) -> Option<T>
    where F: Fn(&mut Ps) -> Option<T> {
       let i = s.i;
       let v = f(s);

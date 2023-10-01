@@ -45,20 +45,17 @@ pub fn combine_relative_imports(imports: &mut Vec<Import>) {
 pub fn separate_absolute_imports(imports: &mut Vec<Import>) {
    let mut to_separate = vec![];
    for import in imports.iter_mut() {
-      match import {
-         Import::Absolute { modules, .. } => {
-            let mut done = false;
-            modules.retain(|module| {
-               if done {
-                  to_separate.push(module.clone());
-                  false
-               } else {
-                  done = true;
-                  true
-               }
-            });
-         },
-         _ => {}
+      if let Import::Absolute { modules, .. } = import {
+         let mut done = false;
+         modules.retain(|module| {
+            if done {
+               to_separate.push(module.clone());
+               false
+            } else {
+               done = true;
+               true
+            }
+         });
       }
    }
    for module in to_separate {
